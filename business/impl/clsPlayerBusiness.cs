@@ -20,4 +20,16 @@ public sealed class clsPlayerBusiness<TI, TC> : IPlayerBusiness<TI>
         var x = await playerRepository.addPlayer(newPlayer).ConfigureAwait(false);
         return new clsPlayer<TI>(x, newPlayer.email);
     }
+
+    public async Task<clsPlayer<TI>> getPlayer(TI ID)
+    {
+        var x = await playerRepository.getPlayer(ID).ConfigureAwait(false);
+        return new clsPlayer<TI>(ID, x.email);
+    }
+
+    public async Task<clsPlayer<TI>> putPlayer(clsPlayer<TI> putPlayer)
+    {
+        var x = await playerRepository.putPlayer(putPlayer).ConfigureAwait(false);
+        return new clsPlayer<TI>(putPlayer.id, putPlayer.email);
+    }
 }
