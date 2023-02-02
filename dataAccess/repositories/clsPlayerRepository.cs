@@ -75,7 +75,7 @@ public sealed class clsPlayerRepository<TI, TC> : clsDataAccess<clsPlayerEntityM
         var p = new DynamicParameters();
         p.Add("EMAIL", player.email);
         p.Add("ID", player.id);
-        var result = await set<clsPlayerEntityModel<TI,TC>>(p,null,queries.UpdateWholeEntity, null).ConfigureAwait(false);  
+        var result = await set<clsPlayerEntityModel<TI,TC>>(p,null,queries.UpdateWholeEntity, null).ConfigureAwait(false);
         return result;
     }
 }

@@ -50,7 +50,15 @@ try
     [AllowAnonymous] async(IPlayerBusiness<int> bs, int id) => Results.Ok(await bs.getPlayer(id)));
 
     app.MapPut("player", 
-    [AllowAnonymous] async(IPlayerBusiness<int> bs, clsPlayer<int> updatePlayer) => Results.Ok(await bs.putPlayer(updatePlayer)));
+    [AllowAnonymous] async(IPlayerBusiness<int> bs, clsPlayer<int> updatePlayer) => {
+        var result = await bs.putPlayer(updatePlayer);
+        if (result != null)
+        {
+            Results.Ok(result);
+        }else{
+            Results.NotFound("Elemento no encontrado");
+        }
+        });
     app.Run();
 }
 catch (Exception ex)

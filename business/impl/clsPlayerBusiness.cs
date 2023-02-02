@@ -30,6 +30,9 @@ public sealed class clsPlayerBusiness<TI, TC> : IPlayerBusiness<TI>
     public async Task<clsPlayer<TI>> putPlayer(clsPlayer<TI> putPlayer)
     {
         var x = await playerRepository.putPlayer(putPlayer).ConfigureAwait(false);
-        return new clsPlayer<TI>(putPlayer.id, putPlayer.email);
+        if(x == null){
+            return null;
+        }
+        return new clsPlayer<TI>(x.id, x.email);
     }
 }
