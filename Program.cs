@@ -2,6 +2,7 @@ using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using chessAPI;
 using chessAPI.business.interfaces;
+using chessAPI.models.game;
 using chessAPI.models.player;
 using Microsoft.AspNetCore.Authorization;
 using Serilog;
@@ -42,7 +43,7 @@ try
     {
         return "hola mundo";
     });
-
+    //PLAYER
     app.MapPost("player", 
     [AllowAnonymous] async(IPlayerBusiness<int> bs, clsNewPlayer newPlayer) => Results.Ok(await bs.addPlayer(newPlayer)));
 
@@ -56,9 +57,27 @@ try
         {
             Results.Ok(result);
         }else{
-            Results.NotFound("Elemento no encontrado");
+            Results.NotFound();
         }
         });
+    //GET
+    app.MapPost("game", 
+    [AllowAnonymous] async(IGameBusiness<int> bs, clsNewGame newGame) => Results.Ok(await bs.addGame(newGame)));
+
+    app.MapGet("game", 
+    [AllowAnonymous] async(IGameBusiness<int> bs, int id) => Results.Ok(await bs.getGame(id)));
+
+    app.MapPut("game", 
+    [AllowAnonymous] async(IGameBusiness<int> bs, clsGame<int> updateGame) => {
+        var result = await bs.putGame(updateGame);
+        if (result != null)
+        {
+            Results.Ok(result);
+        }else{
+            Results.NotFound();
+        }
+        });
+
     app.Run();
 }
 catch (Exception ex)

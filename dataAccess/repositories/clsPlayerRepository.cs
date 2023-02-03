@@ -34,21 +34,6 @@ public sealed class clsPlayerRepository<TI, TC> : clsDataAccess<clsPlayerEntityM
         return r;
     }
 
-    public Task deletePlayer(TI id)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task<IEnumerable<clsPlayerEntityModel<TI, TC>>> getPlayersByGame(TI gameId)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task updatePlayer(clsPlayer<TI> updatedPlayer)
-    {
-        throw new NotImplementedException();
-    }
-
      public async Task<clsPlayerEntityModel<TI,TC>> getPlayer(TI playerID)
     {
         return await getEntity(playerID).ConfigureAwait(false);
