@@ -62,7 +62,15 @@ try
         });
     //GET
     app.MapPost("game", 
-    [AllowAnonymous] async(IGameBusiness<int> bs, clsNewGame newGame) => Results.Ok(await bs.addGame(newGame)));
+    [AllowAnonymous] async(IGameBusiness<int> bs, clsNewGame newGame) => {
+        var result = await bs.addGame(newGame);
+        if (result != null)
+        {
+            return Results.Ok("Se ha iniciado la partida");
+        }else{
+            return Results.NotFound("Ha ocurrido un error al iniciar la partida");
+        }
+        });
 
     app.MapGet("game", 
     [AllowAnonymous] async(IGameBusiness<int> bs, int id) => Results.Ok(await bs.getGame(id)));
@@ -74,7 +82,7 @@ try
         {
             return Results.Ok("Asignación exitosa");
         }else{
-            return Results.Conflict("Existen jugadores que pertenecen a ambos equipos");
+            return Results.BadRequest("Existen jugadores que pertenecen a ambos equipos");
         }
         });
 
