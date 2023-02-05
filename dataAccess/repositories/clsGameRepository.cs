@@ -21,9 +21,7 @@ public sealed class clsGameRepository<TI, TC> : clsDataAccess<clsGameEntityModel
         var p = new DynamicParameters();
         p.Add("STARTED", game.started);
         p.Add("WHITES", game.whites);
-        p.Add("BLACKS", game.blacks);
         p.Add("TURN", game.turn);
-        p.Add("WINNER", game.winner);
         return await add<TI>(p).ConfigureAwait(false);
     }
 
@@ -33,7 +31,7 @@ public sealed class clsGameRepository<TI, TC> : clsDataAccess<clsGameEntityModel
         foreach (var game in games)
         {
             TI gameId = await addGame(game).ConfigureAwait(false);
-            r.Add(new clsGameEntityModel<TI, TC>() { id = gameId, started = game.started, whites = game.whites, blacks = game.blacks, turn = game.turn, winner = game.winner });
+            r.Add(new clsGameEntityModel<TI, TC>() { id = gameId, started = game.started, whites = game.whites, turn = game.turn });
         }
         return r;
     }
@@ -66,11 +64,7 @@ public sealed class clsGameRepository<TI, TC> : clsDataAccess<clsGameEntityModel
     public async Task<clsGameEntityModel<TI,TC>> putGame(clsGame<TI> game)
     {
         var p = new DynamicParameters();
-        p.Add("STARTED", game.started);
-        p.Add("WHITES", game.whites);
         p.Add("BLACKS", game.blacks);
-        p.Add("TURN", game.turn);
-        p.Add("WINNER", game.winner);
         p.Add("ID", game.id);
         var result = await set<clsGameEntityModel<TI,TC>>(p,null,queries.UpdateWholeEntity, null).ConfigureAwait(false);
         return result;

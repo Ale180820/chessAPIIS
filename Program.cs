@@ -55,9 +55,9 @@ try
         var result = await bs.putPlayer(updatePlayer);
         if (result != null)
         {
-            Results.Ok(result);
+            return Results.Ok(result);
         }else{
-            Results.NotFound();
+            return Results.NotFound("Ha ocurrido un error en la actualización del registro");
         }
         });
     //GET
@@ -72,9 +72,9 @@ try
         var result = await bs.putGame(updateGame);
         if (result != null)
         {
-            Results.Ok(result);
+            return Results.Ok("Asignación exitosa");
         }else{
-            Results.NotFound();
+            return Results.Conflict("Existen jugadores que pertenecen a ambos equipos");
         }
         });
 
