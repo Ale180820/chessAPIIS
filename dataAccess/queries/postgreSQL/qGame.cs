@@ -17,14 +17,14 @@ public sealed class qGame : IQGame
     private const string _delete = @"";
     private const string _update = @"
     UPDATE public.game
-	SET blacks=2
+	SET blacks=@BLACKS
 	WHERE id=1 AND NOT EXISTS (
 		SELECT a.player_id
 		FROM team_player a
-		WHERE team_id = 1 
+		WHERE team_id = @WHITES
 		AND EXISTS (SELECT 1
 						FROM team_player b
-						WHERE team_id = 2 AND a.player_id = b.player_id)
+						WHERE team_id = @BLACKS AND a.player_id = b.player_id)
 	)
 	RETURNING id";
 

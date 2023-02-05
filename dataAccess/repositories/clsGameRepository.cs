@@ -65,6 +65,7 @@ public sealed class clsGameRepository<TI, TC> : clsDataAccess<clsGameEntityModel
     {
         var p = new DynamicParameters();
         p.Add("BLACKS", game.blacks);
+        p.Add("WHITES", game.whites);
         p.Add("ID", game.id);
         var result = await set<clsGameEntityModel<TI,TC>>(p,null,queries.UpdateWholeEntity, null).ConfigureAwait(false);
         return result;
